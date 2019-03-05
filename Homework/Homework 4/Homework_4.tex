@@ -39,7 +39,7 @@
 \begin{problem}{1}
 \end{problem}
 
-Suppose that there are two polynomials $P_n(x)$ and $Q_n(x)$ of degree $\leq n$ which interpolate our $n+1$ data points $(x_0, y_0), (x_1, y_1), ..., (x_n, y_n)$. Define:
+\noindent Suppose that there are two polynomials $P_n(x)$ and $Q_n(x)$ of degree $\leq n$ which interpolate our $n+1$ data points $(x_0, y_0), (x_1, y_1), ..., (x_n, y_n)$. Define:
 \begin{center}
 $R(x) = P_n(x) - Q_n(x)$
 \end{center}
@@ -60,19 +60,19 @@ $P_n(x_i) = y_i, i = 0, ..., n$
 \end{problem}
 
 \begin{enumerate}
-	\item \begin{align*}
+	\item[a)]\begin{align*}
 			P_1(x) &= f(x_0) + (x - x_0)f[x_0, x_1]\\
 			&= 7 + (x - 0)(\frac{11-7}{2-0})\\
 			&= 7 + 2x
 		  \end{align*}
-	\item \begin{align*}
+	\item[b)] \begin{align*}
 			P_2(x) &= P_1(x) + (x - x_0)(x - x_1)f[x_0, x_1, x_2]\\
 			&= 7 + 2x + (x - 0)(x - 2)(\frac{f[x_1, x_2] - f[x_0, x_1]}{x_2 - x_0})\\
 			&= 7 + 2x + x(x-2)(\frac{17 - 2}{3-0})\\
 			&= 7 + 2x + (x^2 - 2x)5\\
 			&= 7 + 2x + 5x^2 - 10x = 5x^2 - 8x + 7
 		  \end{align*}
-	\item \begin{align*}
+	\item[c)] \begin{align*}
 			P_3(x) &= P_2(x) + (x - x_0)(x - x_1)(x - x_2)f[x_0, x_1, x_2, x_3]\\
 			&= 5x^2 - 8x + 7 + (x - 0)(x - 2)(x - 3)(\frac{f[x_1, x_2, x_3] - f[x_0, x_1, x_2]}{x_3 - x_0})\\
 			&= 5x^2 - 8x + 7 + x(x-2)(x-3)(\frac{(\frac{f[x_2, x_3] - f[x_1, x_2]}{x_3 - x_1}) - 5}{4 - 0})\\
@@ -87,7 +87,7 @@ $P_n(x_i) = y_i, i = 0, ..., n$
 \begin{problem}{3}
 \end{problem}
 
-Since $n = 5$ and $f(x) = sin(x)$, $f^{n+1}(c) =  f^{6}(c) = -sin(c)$. Furthermore, we know $(n+1)! = 6! = 720$. Thus,
+\noindent Since $n = 5$ and $f(x) = sin(x)$, $f^{n+1}(c) =  f^{6}(c) = -sin(c)$. Furthermore, we know $(n+1)! = 6! = 720$. Thus,
 \begin{center}
 $|\frac{f^6(c)}{6!}| \leq \frac{1}{720} \approx 0.001388889$
 \end{center}
@@ -95,51 +95,54 @@ Now we just need to bound the term $|\prod_{i=0}^{5} (x - x_i)|$.\\
 \\
 Let $h = \frac{1.6875}{5}$ and $x_i = ih$. Then,
 \begin{align*}
-|\prod_{i=0}^{5} (x - x_i)| &= |(x - 0(1.6875))(x - 1(1.6875))(x - 2(1.6875))(x - 3(1.6875))(x - 4(1.6875))(x - 5(1.6875))|\\
+|\prod_{i=0}^{5} (x - x_i)| &= |(x)(x - 1(1.6875))(x - 2(1.6875))(x - 3(1.6875))(x - 4(1.6875))(x - 5(1.6875))|\\
 &= |x^6 - 25.3125x^5 + 242.051x^4 - 1081.22x^3 + 2221.91x^2 - 1642.1x|
 \end{align*}
 Let's graph this function to try to find its upper bound on [0, 1.6875] now.
 \newpage
 \begin{tikzpicture}[scale=2]
   \begin{axis}[
+    xmin = 0, xmax = 1.6875,
+    grid = both,
     domain=0:1.6875,
     ymin = 0,
     ymax = 450,
+    yticklabel style = {font = \tiny, xshift = .5ex},
+    xticklabel style = {font = \tiny, yshift = 0.5ex},
     samples=101,
     smooth,
     no markers,
     ]
     \addplot {abs(x^6 - 25.3125*x^5 + 242.051*x^4 - 1081.22*x^3 + 2221.91*x^2 - 1642.1*x)};
-    \node at (70, 100) {$y = |\prod_{i=0}^{5} (x - x_i)|$};
-    \draw [dashed, ultra thick] (0, 400) -- (168.75,400);
-    \node at (70, 420) {$y = 400$};
+    \node at (120, 350) {\tiny$y = \left|\prod_{i=0}^{5} (x - x_i)\right|$};
+    \draw [dashed, thick] (0, 400) -- (168.75,400);
+    \node at (70, 420) {\tiny$y = 400$};
   \end{axis}
 \end{tikzpicture}
 
-As evident in the plot, 
+\noindent As evident in the plot, 
 \begin{center}
 $y = |x^6 - 25.3125x^5 + 242.051x^4 - 1081.22x^3 + 2221.91x^2 - 1642.1x| \leq 400$
 \end{center}
 
-on $[0, 1.6875]$. Thus,
+\noindent Thus,
 \begin{align*}
-|f(x) - p(x)| &= |\frac{f^6(c)}{6!} \prod_{i=0}^{5} (x - x_i)|\\
-&= |\frac{f^6(c)}{6!}| |\prod_{i=0}^{5} (x - x_i)|\\
-&\leq (\frac{1}{720})|400| = \frac{5}{9} \approx 0.555556
+\left|f(x) - p(x)\right| &= \left|\frac{f^6(c)}{6!} \prod_{i=0}^{5} (x - x_i)\right|\\
+&\leq \left|\left(\frac{1}{720}\right)400\right| = \frac{5}{9} \approx 0.555556
 \end{align*}
-is the upper bound for the error $|f(x) - p(x)|$ on $[0, 1.6875]$.
-\newpage
+is an upper bound for the error $|f(x) - p(x)|$ on $[0, 1.6875]$.
+
 \begin{problem}{4}
 \end{problem}
 
-From (4.64) in the textbook,
+\noindent From (4.64) in the textbook,
 \begin{align*}
-&\frac{1}{6}M_1 + {2}{3}M_2 + \frac{1}{6}M_3 = 3\\
-&\frac{1}{6}M_2 + {2}{3}M_3 + \frac{1}{6}M_4 = 0\\
-&\frac{1}{6}M_3 + {2}{3}M_4 + \frac{1}{6}M_5 = -2
+&\frac{1}{6}M_1 + \frac{2}{3}M_2 + \frac{1}{6}M_3 = 3\\
+&\frac{1}{6}M_2 + \frac{2}{3}M_3 + \frac{1}{6}M_4 = 0\\
+&\frac{1}{6}M_3 + \frac{2}{3}M_4 + \frac{1}{6}M_5 = -2
 \end{align*}
-
-We know from (4.65) that $M_1 = M_5 = 0$. Combining this with the above system of equations yields:
+\newpage
+\noindent We know from (4.65) that $M_1 = M_5 = 0$. Combining this with the above system of equations yields:
 \begin{center}
 $M_2 = \frac{129}{28}$, $M_3 = -\frac{3}{7}$, $M_4 = -\frac{81}{28}$
 \end{center}
@@ -158,7 +161,7 @@ $
 \end{problem}
 
 \begin{enumerate}[\alph*)]
-\item Each $a_{ij}$ comes from one of the following coefficients in (4.64):
+\item Each $a_{ij}$ is comes from one of the following coefficients in (4.64):
 \begin{center}
 $\frac{x_j - x_{j-1}}{6}$, $\frac{x_{j+1} - x_{j-1}}{3}$, $\frac{x_{j+1} - x_j}{6}$
 \end{center}
@@ -168,8 +171,66 @@ We know $x_1 < x_2 < ... < x_n$. Thus, in the equations above, we have:
 $x_j > x_{j-1}$, $x_{j+1} > x_{j-1}$, $x_{j+1} > x_j$
 \end{center}
 
-Thus, each numerator term is positive for any value $2 \leq j \leq n-1$. Since all the denominators are also positive, each $a_{ij}$ is positive.
+Thus, each numerator term is positive for any value $2 \leq j \leq n-1$. Since all the denominators are positive, each $a_{ij}$ is positive.\\
 
+Now we need to check that $a_{ii} = 2(a_{ii-1} + a_{ii+1})$ where $a_{10} = a_{nn+1} = 0$.\\
+
+Let's examine the base case,
+\begin{align*}
+a_{11} &= 2\left(a_{10} + a_{12}\right)\\
+&= 2\left(0 + \frac{x_3 - x_2}{6}\right)\\
+&= \frac{x_3 - x_2}{3}
+\end{align*} 
+
+However, we know that,
+\begin{align*}
+a_{11} = \frac{x_3 - x_1}{3} \neq \frac{x_3 - x_2}{3}
+\end{align*}
+
+since $x_2 \neq x_1$. Thus, the matrix does not satisfy this condition for row $1$. It can be shown that row $n$ also does not satisfy the condition.\\
+\\
+Let's try checking the interior rows $(2,...,n-1)$ to see if they satisfy the condition.
+\begin{align*}
+a_{ii} &= 2\left(a_{ii-1} + a_{ii+1}\right)\\
+&= 2\left(\frac{x_{i+1} - x_{i}}{6} + \frac{x_{i+2} - x_{i+1}}{6}\right)\\
+&= \frac{x_{i+2} - x_{i}}{3}
+\end{align*}
+Since the indeces for $\vec{x}$ correspond to the indices for $M$ offset by 1 (because we have $M_1 = M_n = 0$), we have $j = i+1$ where $j$ is the subscript for $x_j$ in the formulas in (a) and $i$ is the index of the row in the matrix. Plugging in that relationship yields,
+\begin{align*}
+a_{ii} &= \frac{x_{i+2} - x_{i}}{3}\\
+&= \frac{x_{j+1} - x_{j}}{3}
+\end{align*}
+
+This is precisely the formula desired for each $a_{ii}$. Thus, the condition  $a_{ii} = 2(a_{ii-1} + a_{ii+1})$ holds for rows $2, ..., n-1$.
+
+
+\item Suppose $A$ is invertible. Then we can write:
+\begin{align*}
+&A\vec{x} = \vec{b}\\
+\implies &A^{-1}(A\vec{x}) = A^{-1}(\vec{b})\\
+\implies &\vec{x} = A^{-1}\vec{b}
+\end{align*}
+
+Now let's show that $A^{-1}$ is unique. Suppose there are two matrices that are inverses of $A$ called $B$ and $C$. Then,
+\begin{align*}
+&AB = BA = AC = CA = I\\
+\implies &B = B(I) = B(AC) = (BA)C = (I)C = C
+\end{align*}
+
+Thus, $B = C$ and the inverse of $A$ is unique.\\
+\\
+Since matrix multiplication is a deterministic algorithm and both $A^{-1}$ and $\vec{b}$ are unique, then there can only be one solution $\vec{x} = A^{-1}\vec{b}$.
+
+\item For rows $2, ..., n-1$, we have
+\begin{align*}
+&a_{ii-1}x_{i-1} + a_{ii}x_i + a_{ii+1}x_{i+1} = 0\\
+\implies &a_{ii-1}x_{i-1} + 2x_i(a_{ii-1} + a_{ii+1}) + a_{ii+1}x_{i+1} = 0
+\end{align*}
+
+\item We have,
+\begin{align*}
+a_{11}x_1 + a_{12}x_2 = 0
+\end{align*}
 
 \end{enumerate}
 \end{document}
