@@ -1,0 +1,149 @@
+\documentclass[12pt]{article}
+ 
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amsthm,amssymb, mathtools}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{fixltx2e}
+\usepackage[shortlabels]{enumitem}
+\usepackage{pgfplots}                                                           
+\usepackage{pgf}
+\usepackage{tikz}                                                               
+\usepackage{float}
+\usepackage{graphicx}
+\graphicspath{ {./} }  
+ 
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\rpm}{\sbox0{$1$}\sbox2{$\scriptstyle\pm$}
+  \raise\dimexpr(\ht0-\ht2)/2\relax\box2 }
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+
+ 
+\newenvironment{theorem}[2][Theorem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{lemma}[2][Lemma]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{exercise}[2][Exercise]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{problem}[2][Problem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{question}[2][Question]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{corollary}[2][Corollary]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newcommand{\textfrac}[2]{\dfrac{\text{#1}}{\text{#2}}}
+
+\begin{document}
+
+\title{Numerical Analysis: Homework \#9}
+
+\author{Chris Hayduk}
+\date{\today}
+
+\maketitle
+
+\begin{problem}{1}
+\end{problem}
+
+\begin{enumerate}
+	\item[a)] 0 is an eigenvalue of $A$ if $A\vec{v} = 0\vec{v}$ for some $\vec{v} \neq \vec{0}$.\\
+	
+	We can simplify this as,
+	\begin{align*}
+		A\vec{v} = 0\vec{v} = \vec{0}
+	\end{align*}
+	
+	Since we know $A$ is invertible, the equation $A\vec{x} = \vec{0}$ only has the trivial solution $\vec{x} = \vec{0}$.\\
+	
+	This implies that $\vec{v} = 0$. However, we assumed that $\vec{v} \neq 0$, a contradiction. Thus, 0 is not an eigenvalue of $A$ when $A$ is invertible.
+	
+	\item[b)] Suppose $\lambda$ is a non-zero eigenvalue of $A$. Then, $\exists \vec{v} \neq \vec{0}$ such that $A\vec{v} = \lambda\vec{v}$.\\
+	
+	Now let's multiply $A^{-1}$ on both sides,
+	\begin{align*}
+		A^{-1}(A\vec{v}) &= A^{-1}(\lambda\vec{v})\\
+		\vec{v} &= A^{-1}\lambda\vec{v}\\
+		A^{-1}\vec{v} &= \lambda^{-1}\vec{v}
+	\end{align*}
+	
+	This satisfies the definition of an eigenvalue. Thus, $\lambda^{-1}$ is an eigenvalue of $A^{-1}$ if $\lambda$ is an eigenvalue of $A$.
+\end{enumerate}
+\\
+\begin{problem}{2}
+\end{problem}
+
+After coding a power method program in Python with the following initial vector:\\
+
+$\vec{z}^{(0)} = \begin{bmatrix}1.0\\0.30683515\\0.50975501\end{bmatrix}$\\
+
+I obtained the following output:\\
+
+$\lambda^{(m)}_1 = 5.031308512575385$\\
+
+$\vec{z}^{(m)} = \begin{bmatrix}0.87931865\\1.0\\-0.07802744\end{bmatrix}$\\
+\\
+\begin{problem}{3}
+\end{problem}
+
+We have,
+
+\begin{align*}
+	&\int_{a}^{b} \sqrt{1 + (3x^2)^2} dx\\
+	&\int_{a}^{b} \sqrt{1 + 9x^4} dx
+\end{align*}
+
+Thus,
+
+\begin{align*}
+	f(x) = \sqrt{1 + 9x^4}
+\end{align*}
+
+From (5.22), we have,
+
+\begin{align*}
+	S_6(f) &= \frac{h}{3}[f(x_0) + 4f(x_1) + 2f(x_2) + 4f(x_3) + 2f(x_4) + 4f(x_5) + f(x_6)]\\
+	&= \frac{b-a}{18}[\sqrt{1+9a^4} + 4\sqrt{1+9(a+h)^4} + 2\sqrt{1+9(a+2h)^4} + 4\sqrt{1+9(a+3h)^4} +\\
+	&2\sqrt{1+9(a+4h)^4} + 4\sqrt{1+9(a+5h)^4} + \sqrt{1+9(a+6h)^4}]
+\end{align*}
+\\
+\begin{problem}{4}
+\end{problem}
+
+From the error formula (5.35), we have,
+
+\begin{align*}
+	E_n(f) &= -\frac{h^4(b-a)}{180}f^{(4)}(c_n)\\
+	&= -\frac{\frac{1-0}{n}^4(1-0)}{180}[4e^{-c_n^2}(4c_n^4 - 12c_n^2 + 3)]\\
+	&= -\frac{\frac{1}{n}^4}{180}[4e^{-c_n^2}(4c_n^4 - 12c_n^2 + 3)]
+\end{align*}
+
+with $c_n \in [0, 1]$.\\
+
+This expression is maximized at $c_n = 0$. This yields,
+
+\begin{align*}
+	|E_n(f)| &\leq 12\frac{\frac{1}{n}^4}{180}\\
+	&= \frac{\frac{1}{n}^4}{15}\\
+	&= \frac{1}{15n^4}
+\end{align*}
+
+Thus we have,
+
+\begin{align*}
+	|E_n(f)| \leq 10^{-8} &\implies \frac{1}{15n^4} \leq 10^{-8}\\
+	&\implies 15n^4 \geq 10^8\\
+	&\implies n^4 \geq \frac{10^8}{15}\\
+	&\implies n \geq 50.81327
+\end{align*}
+
+Thus, we must choose $n \geq 51$ to ensure that the absolute value of the error is less than $10^{-8}$.
+
+After coding a Python function for Simpson's Rule, I approximated the integral using $n = 51$. This yielded an approximation of 
+
+\begin{align*}
+	&\int_{0}^{1} e^{-x^2} dx \approx S_{51}(f) = 0.7443725443100901
+\end{align*}
+\end{document}
